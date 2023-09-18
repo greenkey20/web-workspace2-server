@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>회원 관련 쿼리문들</comment>
+	<!--2022.1.4(화) 15h45; 1행 standalone~2행 내용 강사님께서는 타이핑하심 = jdbc 4 properties 'Run 클래스'에서 Properties 객체.storeToXML했을 때는 자동으로 써진 문구였음-->
+	
+	<entry key="loginMember">
+		SELECT * FROM MEMBER WHERE USER_ID = ? AND USER_PWD = ? AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="insertMember">
+		INSERT
+			   INTO MEMBER
+			   		  (
+			   		    USER_NO
+			   		  , USER_ID
+			   		  , USER_PWD
+			   		  , USER_NAME
+			   		  , PHONE
+			   		  , EMAIL
+			   		  , ADDRESS
+			   		  , INTEREST) VALUES(SEQ_UNO.NEXTVAL, ?, ?, ?, ?, ?, ?, ?)
+	</entry>
+	
+	
+	<entry key="updateMember">
+		UPDATE
+				MEMBER
+			SET 
+				USER_NAME = ?
+			   ,PHONE = ?
+			   ,EMAIL = ?
+			   ,ADDRESS = ?
+			   ,INTEREST = ?
+			   ,MODIFY_DATE = SYSDATE
+		  WHERE 
+				USER_ID = ?
+	</entry>
+	
+	<entry key="selectMember">
+		SELECT *
+		  FROM
+		       MEMBER
+		 WHERE
+		       USER_ID = ?
+		   AND
+		       STATUS = 'Y'
+	</entry>
+	
+	<entry key="updatePwdMember">
+		UPDATE 
+				MEMBER
+		    SET 
+		    	USER_PWD = ?
+		       ,MODIFY_DATE = SYSDATE
+		  WHERE 
+		  		USER_PWD = ?
+		  	AND 
+		  		USER_ID = ?
+	</entry>
+	
+	<entry key="deleteMember">
+		UPDATE
+				MEMBER
+		    SET 
+		    	STATUS = 'N'
+		       ,MODIFY_DATE = SYSDATE
+		  WHERE 
+		  		USER_ID = ? 
+		  	AND 
+		  		USER_PWD = ?
+	</entry>
+	
+	<!--2022.1.17(월) 16h-->
+	<entry key="idCheck">
+		SELECT COUNT(*)
+		FROM MEMBER
+		WHERE USER_ID = ?
+	</entry>
+
+</properties>

@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>공지사항 관련 쿼리문들</comment>
+	<!--2022.1.10(월) 11h <- 이 프로젝트의 member-mapper.xml 파일 만들어두었던 것 복사+붙여넣기해서 이 파일 만듦-->
+	
+	<entry key="selectNoticeList">
+		SELECT
+				NOTICE_NO
+			   ,NOTICE_TITLE
+			   ,USER_ID
+			   ,NOTICE_CONTENT
+			   ,COUNT
+			   ,CREATE_DATE
+		  FROM
+		  		NOTICE N
+		  JOIN
+		  		MEMBER M ON (NOTICE_WRITER = USER_NO)
+		 WHERE N.STATUS = 'Y'
+  		 ORDER BY CREATE_DATE DESC
+	</entry>
+	
+	<entry key="insertNotice">
+		INSERT INTO
+					NOTICE
+						   (
+							NOTICE_NO
+						   ,NOTICE_TITLE
+						   ,NOTICE_CONTENT
+						   ,NOTICE_WRITER
+						   )
+					VALUES
+						   (
+						   	SEQ_NNO.NEXTVAL
+						   ,?
+						   ,?
+						   ,?
+						   )
+	</entry>
+	
+	<entry key="increaseCount">
+		UPDATE NOTICE SET COUNT = COUNT + 1 WHERE NOTICE_NO = ? AND STATUS = 'Y'
+	</entry>
+	
+	<!--2022.1.11(화) 9h30-->
+	<entry key="selectNotice">
+		SELECT 
+				NOTICE_NO
+			   ,NOTICE_TITLE
+			   ,NOTICE_CONTENT
+			   ,USER_ID
+			   ,CREATE_DATE
+		FROM 
+				NOTICE N
+		JOIN 
+				MEMBER ON (NOTICE_WRITER = USER_NO)
+		WHERE 
+				NOTICE_NO = ? 
+		  AND 
+		  		N.STATUS = 'Y'
+	</entry>
+	
+	<!--2022.1.11(화) 12h20-->
+	<entry key="updateNotice">
+		UPDATE NOTICE
+		   SET NOTICE_TITLE = ?
+		      ,NOTICE_CONTENT = ?
+		 WHERE NOTICE_NO = ? 
+		   AND STATUS = 'Y'
+	</entry>
+	
+	<!--2022.1.11(화) 15h5-->
+	<entry key="deleteNotice">
+		UPDATE NOTICE
+		SET STATUS = 'N'
+		WHERE NOTICE_NO = ?
+	</entry>
+
+</properties>

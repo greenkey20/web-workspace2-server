@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<comment>일반게시판 관련 쿼리문들</comment>
+	<!--2022.1.11(화) 17h10-->
+	
+	<entry key="selectListCount">
+		SELECT COUNT(*) COUNT
+		FROM BOARD 
+		WHERE STATUS = 'Y' AND BOARD_TYPE = 1
+	</entry>
+	
+	<!--2022.1.12(수) _h-->
+	<entry key="selectList">
+		SELECT *
+		FROM (SELECT ROWNUM RNUM, A.*
+		        FROM (SELECT BOARD_NO, CATEGORY_NAME, BOARD_TITLE, USER_ID, COUNT, CREATE_DATE
+		                FROM BOARD B
+		                JOIN CATEGORY USING (CATEGORY_NO)
+		                JOIN MEMBER ON (BOARD_WRITER = USER_NO)
+		                WHERE BOARD_TYPE = 1 AND B.STATUS = 'Y'
+		                ORDER BY CREATE_DATE DESC) A)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<!--2022.1.12(수) 14h20-->
+	<entry key="selectCategory">
+		SELECT * FROM CATEGORY
+	</entry>
+	
+	<!--2022.1.12(수) 17h45-->
+	<entry key="insertBoard">
+		INSERT INTO BOARD(BOARD_NO, BOARD_TYPE, CATEGORY_NO, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITER)
+		VALUES(SEQ_BNO.NEXTVAL, 1, ?, ?, ?, ?)
+	</entry>
+	
+	<!--2022.1.13(목) 9h40-->
+	<entry key="insertAttachment">
+		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH)
+		VALUES(SEQ_FNO.NEXTVAL, SEQ_BNO.CURRVAL, ?, ?, ?)
+		<!--SEQ_BNO.CURRVAL = 최근에 INSERT된 게시글의 게시글 번호-->
+	</entry>
+	
+	<!--2022.1.13(목) 12h20-->
+	<entry key="increaseCount">
+		UPDATE BOARD
+		SET COUNT = COUNT + 1
+		WHERE BOARD_NO = ? AND STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectBoard">
+		<!--2022.1.17(월) 11h30 사진게시판 게시글 상세 조회 기능 구현 시 'left join'으로 수정-->
+		SELECT BOARD_NO, CATEGORY_NAME, BOARD_TITLE, BOARD_CONTENT, USER_ID, CREATE_DATE
+		FROM BOARD B
+		LEFT JOIN CATEGORY USING (CATEGORY_NO)
+		JOIN MEMBER ON (BOARD_WRITER = USER_NO)
+		WHERE BOARD_NO = ? AND B.STATUS = 'Y'
+	</entry>
+	
+	<entry key="selectAttachment">
+		SELECT FILE_NO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH
+		FROM ATTACHMENT
+		WHERE REF_BNO = ?
+	</entry>
+	
+	<!--2022.1.14(금) 9h45-->
+	<entry key="updateBoard">
+		UPDATE BOARD
+		SET CATEGORY_NO = ?, BOARD_TITLE = ?, BOARD_CONTENT = ?
+		WHERE BOARD_NO = ?
+	</entry>
+	
+	<!--2022.1.14(금) 10h5-->
+	<entry key="updateAttachment">
+		UPDATE ATTACHMENT
+		SET ORIGIN_NAME = ?, CHANGE_NAME = ?, FILE_PATH =?, UPLOAD_DATE = SYSDATE
+		WHERE FILE_NO = ?
+	</entry>
+	
+	<!--2022.1.14(금) 10h20-->
+	<entry key="insertNewAttachment">
+		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH)
+		VALUES(SEQ_FNO.NEXTVAL, ?, ?, ?, ?)
+	</entry>
+	
+	<!--2022.1.14(금) 주말 숙제 = 일반게시판 게시글 삭제-->
+	<entry key="">
+		
+	</entry>
+		
+	<!--2022.1.14(금) 15h45-->
+	<entry key="insertThumbnailBoard">
+		INSERT INTO BOARD(BOARD_NO, BOARD_TYPE, BOARD_TITLE, BOARD_CONTENT, BOARD_WRITER)
+		VALUES(SEQ_BNO.NEXTVAL, 2, ?, ?, ?)
+	</entry>
+	
+	<entry key="insertAttachmentList">
+		INSERT INTO ATTACHMENT(FILE_NO, REF_BNO, ORIGIN_NAME, CHANGE_NAME, FILE_PATH, FILE_LEVEL)
+		VALUES(SEQ_FNO.NEXTVAL, SEQ_BNO.CURRVAL, ?, ?, ?, ?)
+	</entry>
+	
+	<!--2022.1.17(월) 9h25-->
+	<entry key="selectThumbnailList">
+		SELECT BOARD_NO, BOARD_TITLE, COUNT, FILE_PATH||CHANGE_NAME "TITLEIMG"
+		FROM BOARD B
+		JOIN ATTACHMENT ON (BOARD_NO = REF_BNO)
+		WHERE BOARD_TYPE = 2 AND B.STATUS = 'Y' AND FILE_LEVEL = 1
+		ORDER BY BOARD_NO DESC
+	</entry>
+	
+	<!--2022.1.18(화) 17h10-->
+	<entry key="selectReplyList">
+		SELECT REPLY_NO, REPLY_CONTENT, USER_ID, TO_CHAR(CREATE_DATE, 'YY/MM/DD HH24:MI:SS') CREATE_DATE
+		FROM REPLY R
+		JOIN MEMBER ON (REPLY_WRITER = USER_NO)
+		WHERE REF_BNO = ? AND R.STATUS = 'Y'
+		ORDER BY CREATE_DATE DESC
+	</entry>
+	
+	<!--2022.1.19(수) 9h40-->
+	<entry key="insertReply">
+		INSERT INTO REPLY(REPLY_NO, REPLY_CONTENT, REF_BNO, REPLY_WRITER)
+		VALUES(SEQ_RNO.NEXTVAL, ?, ?, ?)
+	</entry>
+	
+	<!--2022.1.1() h-->
+	<entry key="">
+		
+	</entry>
+	
+	<!--2022.1.1() h-->
+	<entry key="">
+		
+	</entry>
+
+</properties>

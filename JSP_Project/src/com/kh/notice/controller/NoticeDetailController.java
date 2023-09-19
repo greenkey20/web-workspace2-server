@@ -35,7 +35,7 @@ public class NoticeDetailController extends HttpServlet {
 		
 		// 'localhost:8001/jsp/detail.no?nno=글번호'로 요청 옴
 		// 단계1) request 객체로부터 값 뽑기
-		int noticeNo = Integer.parseInt(request.getParameter("nno")); // getParameter()의 반환형 = String -> NOTICE 테이블에서 글 번호 컬럼 값 number로 정의되어 있으므로, 여기서(vs 아까 __에서는 Dao에서) int 자료형로 변환
+		int noticeNo = Integer.parseInt(request.getParameter("nno")); // getParameter()의 반환형 = String -> NOTICE 테이블에서 글 번호 컬럼 값 number로 정의되어 있으므로, 여기서(vs 아까 insertNotice에서는 Dao에서) int 자료형로 변환
 		
 		// 단계2) vo로 가공 -> 넘길 자료 1개 밖에 없으니까 필요 없음
 		

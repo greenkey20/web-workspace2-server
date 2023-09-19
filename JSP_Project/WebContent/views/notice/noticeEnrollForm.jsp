@@ -31,8 +31,8 @@
         <br>
         <h2 align="center">공지사항 작성</h2>
 
-        <!--공지사항 작성 후 등록(?)해달라고 요청해야 하므로 form 태그 필요-->
-        <form id="enroll-form" action="<%= contextPath %>/insert.no" method="post"> <!--게시글 내용이 너무 길 수 있는 바, header(?)는 길이 제한이 있기 때문에 post 방식(=http body에 넣어 전송)으로 요청 보냄-->
+        <!--공지사항 작성 후 등록해달라고 요청해야 하므로 form 태그 필요-->
+        <form id="enroll-form" action="<%= contextPath %>/insert.no" method="post"> <!--게시글 내용이 너무 길 수 있는 바, header는 길이 제한이 있기 때문에 post 방식(=http body에 넣어 전송)으로 요청 보냄-->
 
             <!--2022.1.10(월) 15h10-->
             <input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">

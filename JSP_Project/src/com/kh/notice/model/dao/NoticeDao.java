@@ -73,14 +73,14 @@ public class NoticeDao {
 		PreparedStatement pstmt = null;
 		String sql = prop.getProperty("insertNotice");
 		// INSERT INTO NOTICE(NOTICE_NO, NOTICE_TITLE, NOTICE_CONTENT, NOTICE_WRITER) VALUES(SEQ_NNO.NEXTVAL, ?, ?, ?);
-		// 나의 질문 = sql developper에서 sequence 정보 어디서 찾는지 모르겠습니다 >.<
+		// 나의 질문 = sql developer에서 sequence 정보 어디서 찾는지 모르겠습니다 >.<
 		
 		try {
 			pstmt = conn.prepareStatement(sql);
 			
 			pstmt.setString(1, n.getNoticeTitle());
 			pstmt.setString(2, n.getNoticeContent());
-			pstmt.setInt(3, Integer.parseInt(n.getNoticeWriter())); // NOTICE 테이블의 NOTICE_WRITER 컬럼의 값 = number 타입 -> Wrapper 클래스 Integer(객체?)의 parseInt() 메소드로 String을 int로 변환함
+			pstmt.setInt(3, Integer.parseInt(n.getNoticeWriter())); // NOTICE 테이블의 NOTICE_WRITER 컬럼의 값 = number 타입 -> Wrapper 클래스 Integer의 parseInt() 메소드로 String을 int로 변환함
 			
 			result = pstmt.executeUpdate();
 		} catch (SQLException e) {

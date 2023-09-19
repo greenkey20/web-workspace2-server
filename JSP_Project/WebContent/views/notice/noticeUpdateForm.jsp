@@ -35,8 +35,8 @@
         <br>
         <h2 align="center">공지사항 수정</h2>
 
-        <!--공지사항 수정 후 등록(?)해달라고 요청해야 하므로 form 태그 필요-->
-        <form id="update-form" action="<%= contextPath %>/update.no" method="post"> <!--게시글 내용이 너무 길 수 있는 바, header(?)는 길이 제한이 있기 때문에 post 방식으로 요청 보냄-->
+        <!--공지사항 수정 후 등록해달라고 요청해야 하므로 form 태그 필요-->
+        <form id="update-form" action="<%= contextPath %>/update.no" method="post"> <!--게시글 내용이 너무 길 수 있는 바, header는 길이 제한이 있기 때문에 post 방식으로 요청 보냄-->
         
         	<!--input hidden으로 userNo 받아올 필요 없으므로 삭제함 vs 공지사항 등록 시에는 있었음 -> 12h15 대신, 여기에서는 nno 받아옴; 화면에는 안 보이고, post 방식 요청이니까 url에도 안 보이고, 몰래/숨겨서 넘김-->
         	<input type="hidden" name="nno" value="<%= n.getNoticeNo() %>">

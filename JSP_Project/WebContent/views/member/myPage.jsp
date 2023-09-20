@@ -103,7 +103,7 @@
 
                         // JavaScript의 indexOf(찾고자 하는 것의 index를 알려줌 -> 찾고자 하는 문자가 없을 경우는 -1을 return) = jQuery의 search() 메소드
                         // jQuery에서 value 속성 값을 return해주는 메소드 = val()
-                        // jQuery에서 현재 접근한 요소를 지정 = $(this)
+                        // jQuery에서 현재 접근한 요소를 지칭 = $(this)
                         if (interest.search($(this).val()) != -1) { // search() 메소드의 인자로 받은 내용이 interest(db의 '관심 분야'에 있는 데이터)에 있는지 탐색 -> 현재 순회 중인 checkbox의 value 값이 interest 문자열에 포함되어 있을 경우 vs 포함되지 않은 경우 -1을 반환(=이 조건에 )
                             $(this).attr("checked", true); // 해당 checkbox의 checked 속성 부여
                         }

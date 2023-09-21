@@ -33,7 +33,7 @@
 		2. 지시어 = JSP 페이지 정보에 대한 내용을 포함하거나(page 지시어), 또 다른 페이지를 포함할 때 사용(include 지시어) <- JSP page 전체에 영향을 미치는 정보를 기술할 때 쓰임
 		 e.g. page 지시어, include 지시어, taglib 지시어(libraries 추가 시 사용)
 		3. JSP action tag = xml 기술을 이용해서 기존의 JSP 문법을 확장하는 기술을 제공하는 태그 -> JSP 페이지 간 데이터 가지고 넘어갈 수 있음 vs semi-project까지는 session에 담거나, request에 담아 servlet 갔다가 다시 request에 담아 다른 jsp 페이지로 forwarding
-		 cf. xml(extended? markup language) 문서 = 태그로 이루어져 있음		
+		 cf. xml(extensible markup language) 문서 = 태그로 이루어져 있음
 		 - 표준(standard) action tag = JSP 페이지 내에서 바로 사용 가능한 태그 -> 별도의 연동 필요 없음 + taglib 지시어 사용x
 		   표현법: 모든 태그명 앞에 jsp:라는 접두어가 붙음
 		   &lt;jsp:태그명&gt;
@@ -46,7 +46,7 @@
 	<!--2022.2.8(화) 10h-->
 	<h1>JSP action tag</h1>
 	<p>
-		XML 기술을 이용해서 기존의 JSP 문법을 확장시키는 기술을 제공하는 태그들 (필기 다 한 것인지 확인 필요)
+		XML 기술을 이용해서 기존의 JSP 문법을 확장시키는 기술을 제공하는 태그들
 	</p>
 
 	<h3>1. 표준 액션 태그</h3>

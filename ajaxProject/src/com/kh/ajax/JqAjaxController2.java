@@ -66,7 +66,7 @@ public class JqAjaxController2 extends HttpServlet {
 		jArr.add(age); // jArr = ["강해피", 4]
 		
 		// 단계0 = 전달하고자 하는 자료의 용도가 달라질 수 있는 바, encoding은 항상 해준다고 생각하기
-//		response.setContentType("text/html; charset=UTF-8"); // html 형식의 문자열(text)로 넘기겠다고 encoding 지정했기 때문에, JavaScript 객체를 만들었지만 문자열로 넘어감 -> 문자열(브라우저 console에서 검은색 글씨로 표시됨)로써 ["강해피",4]가 넘어감
+//		response.setContentType("text/html; charset=UTF-8"); // html 형식의 문자열(text)로 넘기겠다고 encoding 지정했기 때문에, JavaScript 객체를 만들었지만 문자열로 넘어감 -> 문자열(브라우저 console에서 검은색 글씨로 표시됨)로써 ["강해피",4]가 넘어감/전달됨
 		response.setContentType("application/json; charset=UTF-8"); // vs application = JSON 타입의 값 <- 응답할 데이터의 content type을 제대로 지정해야 문자열 형식으로 넘어가지 않음 
 		
 		// 배열을 응답 페이지로 보내기

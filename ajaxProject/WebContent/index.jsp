@@ -29,7 +29,7 @@
         AJAX 구현 방식 = JavaScript 방식 + jQuery 방식 -> jQuery 방식의 코드가 간결하고 사용하기 쉬움<br><br>    
     </p>
 
-    <!--e.g. Naver 회원 가입 화면, main page에서 검색어 입력/신문기사나 날씨 실시간 update, 웹툰 감상 후 댓글 작성 화면 등 -> 브라우저 개발자 도구 > network: 200 ok = 잘 감?(간단히 설명해주셨는데, 제대로 못 들음)-->
+    <!--e.g. Naver 회원 가입 화면, main page에서 검색어 입력/신문기사나 날씨 실시간 update, 웹툰 감상 후 댓글 작성 화면 등 -> 브라우저 개발자 도구 > network: 200 ok = 잘 감-->
 
     <pre>
         jQuery에서의 AJAX 통신

@@ -7,7 +7,7 @@ import java.util.Date;
 import com.oreilly.servlet.multipart.FileRenamePolicy;
 
 // 2022.1.12(수) 16h10
-// implements 키워드를 사용해서 interface를 구현해야 함 -> 이 클래스는 interface로부터 상속받은(?정확한 표현 잘 기억 안 남 ㅠ.ㅠ), 미완성된, 추상메소드 rename()을 오버라이딩해서 반드시 구현해야 함; The type MyFileRenamePolicy must implement the inherited abstract method FileRenamePolicy.rename(File)
+// implements 키워드를 사용해서 interface를 구현해야 함 -> 이 클래스는 interface로부터 상속받은, 미완성된, 추상메소드 rename()을 오버라이딩해서 반드시 구현해야 함; The type MyFileRenamePolicy must implement the inherited abstract method FileRenamePolicy.rename(File)
 public class MyFileRenamePolicy implements FileRenamePolicy {
 	// 16h45 어떤 학우님의 오류 = 이 클래스를 abstract class(추상클래스)로 만들어서 'cannot instantiate the type MyFileRenamePolicy' Java.lang.Error <- 추상클래스는 부모클래스/참조자료형으로는 사용 가능 + 객체 생성은 불가능
 	

@@ -44,7 +44,7 @@ public class BoardInsertController extends HttpServlet {
 		
 		// 단계1) 값 뽑기
 //		System.out.println(request.getParameter("category")); // boardEnrollForm.jsp에서 글 작성(제목과 내용 간단히 입력)하고 '작성' 버튼 클릭 = 이 Servlet 호출 -> 이 줄 코드에 의해 console에 null로 찍힘
-		// form 전송 시 일반(x) multipart/form-data(o) 방식으로 전송하는 경우, request.getParameter("key 값")로 request 객체로부터 값 뽑기가 불가능함 -> multipart라는 객체에 값을 이관시켜서 다뤄야 함
+		// form 전송 시 일반(x) multipart/form-data(o) 방식으로 전송하는 경우, request.getParameter("key 값")로 request 객체로부터 값 뽑기가 불가능함 -> multipart(Request?)라는 객체에 값을 이관시켜서 다뤄야 함
 		// step0) enctype이 multipart/form-data로 잘 전송된 경우에 전반적인 내용들이 수정되도록 조건 걸어줌 -> 나의 질문 = 이것에 대한 else는 처리 어떻게/안 해도 되나?
 		if (ServletFileUpload.isMultipartContent(request)) { // enctype이 multipart/form-data로 잘 전송된 경우 -> ServletFileUpload.isMultipartContent() 메소드는 true 반환
 //			System.out.println("잘 실행되나 확인해봅니다 ^^");
@@ -55,8 +55,9 @@ public class BoardInsertController extends HttpServlet {
 			// step1) 전송되는 파일 관련해서 처리할 작업 내용 = 용량 제한 + 전달된 파일을 저장할 경로 지정 등
 			// step1a) 전송 파일 용량(-> 나의 hard disc 자원 소진) 제한 -> int maxSize(단위: byte) = 10Mbytes로 제한 cf. 2022.1.13(목) 9h 보충 설명 = 보통 웹 서비스에서는 3Mbytes(제대로 들었는지 수업 녹화 영상/녹음 확인) 제한
 			/* 단위: Byte -> Kbyte -> Mbyte -> Gbyte(기가바이트) -> Tbyte(테라바이트) -> 페타바이트..; 추후 개인적으로 운영체제 공부 시 자세히 공부해보기
-			 * 환산: 1024(=2^10) Bytes = 1 Kbyte; 1024 Kbytes = 1 Mbyte = 1024 * 1024(2^20) Bytes 
+			 * 환산: 1024(=2^10) Bytes = 1 Kbyte; 1024 Kbytes = 1 Mbyte = 1024 * 1024(2^20) Bytes
 			 */
+			// 2023.9.20(수) 20h10 보편적인 이미지 파일 업로드 limit 어떻게 잡는 게 좋을까 reference = https://ux.stackexchange.com/questions/95196/how-can-we-go-about-deciding-an-appropriate-filesize-upload-limit
 			int maxSize = 1024 * 1024 * 10; // 10Mbytes
 			
 			// step1b) getRealPath() 메소드 + WebContent 폴더로부터 board_upfiles 폴더까지의 경로를 인자로 제시 -> 전달된 파일을 저장할 서버의 폴더 경로(String savePath) 알아내기
@@ -64,7 +65,7 @@ public class BoardInsertController extends HttpServlet {
 			// 1. ServletContext application: vo 등 Java 클래스 포함하여 web application 어디에서든지 사용 가능 -> board_upfiles 폴더 경로 얻으려면 이 객체의 도움 필요한데, 이 객체는 (순차적으로 request가 있어야만 ->) session이 있어야만 얻을 수 있음 <- request.getSession().getServletContext()
 			// 2. HttpSession session: JSP와 Servlet 어디서든 사용 가능함; request를 가지고/request가 있어야만 얻을 수 있음 <- request.getSession()
 			// 3. HttpServletRequest request: 요청(page)-응답(page) 1세트에서 사용 가능
-			// 4. 거의 사용x?
+			// 4. page = 거의 사용x
 			String savePath = request.getSession().getServletContext().getRealPath("/resources/board_upfiles/"); // 가장 왼쪽에 나오는 / = WebContent(15h45 왜/어떻게인지 강사님의 설명 놓침); 가장 우측에 /(폴더임을 표시) 꼭 붙여주기
 //			System.out.println(maxSize); // 10485760
 //			System.out.println(savePath); // C:\Web-workspace2\JSP_Project\WebContent\resources\board_upfiles\
@@ -101,11 +102,11 @@ public class BoardInsertController extends HttpServlet {
 			Attachment at = null; // null로 초기화 -> 첨부 파일이 있으면 그 때 객체 생성
 			
 			// 첨부 파일이 있을 경우, 원본 파일명, 수정 파일명, 파일 경로
-			// 첨부 파일 유무/원본 파일명이 존재(안)하는지를 가려내는 메소드 = multiRequest.getOriginalFileName("key 값") -> 첨부 파일이  있을 경우 '원본 파일명' vs 없을 경우 null return 
+			// 첨부 파일 유무/원본 파일명이 존재(안)하는지를 가려내는 메소드 = multiRequest.getOriginalFileName("key 값") -> 첨부 파일이 있을 경우 '원본 파일명' vs 없을 경우 null return
 			if (multiRequest.getOriginalFileName("upfile") != null) { // 원본 파일명/첨부 파일이 있다면
 				at = new Attachment(); // 첨부 파일 관련 값들을 vo 객체로 가공
 				at.setOriginName(multiRequest.getOriginalFileName("upfile")); // 원본 파일명
-				at.setChangeName(multiRequest.getFilesystemName("upfile")); // multiRequest.getFilesystemName("key 값") = 서버에 실제 업로드된 파일의 이름을  return해주는 메소드 -> 수정 파일명 알아오기
+				at.setChangeName(multiRequest.getFilesystemName("upfile")); // multiRequest.getFilesystemName("key 값") = 서버에 실제 업로드된 파일의 이름을 return해주는 메소드 -> 수정 파일명 알아오기
 				at.setFilePath("/resources/board_upfiles/"); // 파일 경로
 			}
 			
@@ -118,8 +119,8 @@ public class BoardInsertController extends HttpServlet {
 				request.getSession().setAttribute("alertMsg", "게시글 작성에 성공했습니다");
 				response.sendRedirect(request.getContextPath() + "/list.bo?currentPage=1");
 			} else { // 실패
-				// 첨부 파일이 있었을 경우 파일 첨부 실패했다면(=게시글 작성도 실패했다면), 81행 코드에 의해 내 서버에 이미 업로드/저장된 첨부 파일은 내 hard disc의 용량만 차지하므로, 굳이 서버에 보관할 이유가 없음
-				// 나의 질문 = db에 게시글 작성 및 파일 첨부 성공했을 때만 서버에 파일 업로드(81행 코드 실행)하는 식으로는 안 하나? -> 2022.1.31(월) 16h45 나의 생각 = 요청 페이지로부터 요청 받은 내용 꺼내려면 multiRequest 객체를 생성(81행 코드 실행)해야 하는데, multiRequest 객체 생성과 동시에 첨부파일이 서버에 업로드되는 것 같기 때문에, 절차상 일단은 서버에 업로드해야 하는 듯?
+				// 첨부 파일이 있었을 경우 파일 첨부 실패했다면(=게시글 작성도 실패했다면), 82행 코드에 의해 내 서버에 이미 업로드/저장된 첨부 파일은 내 hard disc의 용량만 차지하므로, 굳이 서버에 보관할 이유가 없음
+				// 나의 질문 = db에 게시글 작성 및 파일 첨부 성공했을 때만 서버에 파일 업로드(82행 코드 실행)하는 식으로는 안 하나? -> 2022.1.31(월) 16h45 나의 생각 = 요청 페이지로부터 요청 받은 내용 꺼내려면 multiRequest 객체를 생성(82행 코드 실행)해야 하는데, multiRequest 객체 생성과 동시에 첨부파일이 서버에 업로드되는 것 같기 때문에, 절차상 일단은 서버에 업로드해야 하는 듯?
 				if (at != null) {
 					new File(savePath + at.getChangeName()).delete(); // 파일 객체 생성(이 파일이 어디에 있는 어떤 이름의 파일인지 알아야 객체 생성 가능) + delete() 메소드 호출
 					// 파일 객체 = C:\Web-workspace2\JSP_Project\WebContent\resources\board_upfiles\2022011216563414070.jpg

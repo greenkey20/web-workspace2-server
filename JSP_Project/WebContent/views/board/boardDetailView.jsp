@@ -74,6 +74,7 @@
 		<div align="center">
 			<a href="<%= contextPath %>/list.bo?currentPage=1" class="btn btn-primary btn-sm">목록 가기</a>
 			<!--나의 질문 = 게시글 상세 조회 페이지에서 주변(e.g. 이전 2 + 이후 2개) 글 목록 보여주기는? + 이전/다음 글 가기 버튼 만들기는? + 본인의 글을 조회 시 increaseCount가 되지 않도록?-->
+			<!--2023.9.20(수) 23h20 나의 생각 = 위 코드에서는 currentPage 1로만 가는데, 현재 조회 중인 글이 있는 페이지/목록으로 가려면 어떻게 해야 할까?-->
 			
 			<!--2022.1.13(목) 15h45 작성자만(로그인이 되어있고 + 현재 로그인된 사용자가 작성자와 동일할 경우에만) 아래 버튼이 보여야 함-->
 			<% if (loginUser != null && loginUser.getUserId().equals(b.getBoardWriter())) { %>
@@ -89,7 +90,6 @@
 
 	<br>
 	<!--2022.1.18(화) 16h40 AJAX 이론 수업 및 실습 후, 댓글창 만들기-->
-	<!--17h 댓글 영역 style 강사님께서 어떻게 수정하셨는지 제대로 못 봄-->
 	<div id="reply-area" style="background-color: limegreen;">
 		<table border="1" align="center">
 			<thead>

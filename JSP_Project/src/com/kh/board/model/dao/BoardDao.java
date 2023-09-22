@@ -171,7 +171,7 @@ public class BoardDao {
 			
 			pstmt.setInt(1, Integer.parseInt(b.getCategory()));
 			pstmt.setString(2, b.getBoardTitle());
-			pstmt.setString(3, b.getBoardTitle());
+			pstmt.setString(3, b.getBoardContent());
 			pstmt.setInt(4, Integer.parseInt(b.getBoardWriter()));
 			
 			// 2022.1.13(목) 9h30

@@ -92,7 +92,7 @@
 		<!--2022.1.13(목) 12h10-->
 		<script>
 			$(function() {
-				$(".list-area>tbody>tr").click(function() { // 선택된 요소를 클릭하면 + event handler 부여(?기술?기재?)
+				$(".list-area>tbody>tr").click(function() { // 선택된 요소를 클릭하면 + event handler 부여/기술/기재
 					// /jsp/detail.bo?bno=X로 요청 보낼 것임 <- 선택된 요소의 자식 요소(td들) 중 첫번째 요소의 text/내용물
 					location.href = "<%= contextPath %>/detail.bo?bno=" + $(this).children().eq(0).text();
 				})

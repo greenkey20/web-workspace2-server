@@ -47,7 +47,8 @@ public class BoardDetailController extends HttpServlet {
 		
 		// 단계3) service단으로  toss
 		BoardService bService = new BoardService(); // 이 controller에서는 쿼리문 3개나 날리는 등 service 클래스 사용할 일이 많음 -> 객체 하나 만들어서 사용
-		
+
+		// 나의 질문 = 본인의 글을 조회 시 increaseCount가 되지 않도록?
 		int result = bService.increaseCount(boardNo);
 		if (result > 0) { // 조회 수가 성공적으로 증가되었다면 -> BOARD 및 ATTACHMENT 조회 -> 조회되지 않은 경우 b 및 at에는 각각 null이 들어있음
 			Board b = bService.selectBoard(boardNo); // BOARD 조회
@@ -56,6 +57,10 @@ public class BoardDetailController extends HttpServlet {
 			// 조회한 b와 at를 응답 페이지로 넘기기
 			request.setAttribute("b", b);
 			request.setAttribute("at", at);
+
+			// 나의 질문 = 게시글 상세 조회 페이지에서 주변(e.g. 이전 2 + 이후 2개) 글 목록 보여주기는? + 이전/다음 글 가기 버튼 만들기는?
+			// 2023.9.20(수) 23h25 나의 생각 = 여기서 response 할 때 이전/후 2개 게시물의 게시글 번호, 제목, 작성자, 조회수, 작성일 등을 Board에 담아 List<Board>를 request.setAttribute 해서 반환?
+			// + 버튼은 상세 보기 JSP 페이지에서 만들면 됨(detail.bo?bno=현재게시글번호-1/+1)?
 			
 			// 응답 page "views/board/boardDetailView.jsp"로 forwarding
 			request.getRequestDispatcher("views/board/boardDetailView.jsp").forward(request, response);

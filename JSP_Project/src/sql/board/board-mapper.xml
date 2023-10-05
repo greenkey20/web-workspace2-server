@@ -84,8 +84,11 @@
 	</entry>
 	
 	<!--2022.1.14(금) 주말 숙제 = 일반게시판 게시글 삭제-->
-	<entry key="">
-		
+	<!--2023.10.3(화) 20h25-->
+	<entry key="deleteBoard">
+		UPDATE BOARD
+		SET STATUS = 'N'
+		WHERE BOARD_NO = ?
 	</entry>
 		
 	<!--2022.1.14(금) 15h45-->

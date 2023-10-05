@@ -213,4 +213,18 @@ public class BoardService {
 		return result;
 	} // insertReply() 종료
 
+	// 2023.10.3(화) 20h15
+	public int deleteBoard(int boardNo) {
+		Connection conn = getConnection();
+
+		int result = new BoardDao().deleteBoard(conn, boardNo);
+
+		if (result > 0) {
+			commit(conn);
+		} else {
+			rollback(conn);
+		}
+
+		return result;
+	}
 }

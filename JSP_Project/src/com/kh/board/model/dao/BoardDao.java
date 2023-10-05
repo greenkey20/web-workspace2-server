@@ -610,4 +610,25 @@ public class BoardDao {
 		return result;
 	} // insertReply() 영역 끝
 
+	// 2023.10.3(화) 20h15
+	public int deleteBoard(Connection conn, int boardNo) {
+		int result = 0;
+		PreparedStatement pstmt = null;
+		String sql = prop.getProperty("deleteBoard");
+
+		try {
+			pstmt = conn.prepareStatement(sql);
+
+			pstmt.setInt(1, boardNo);
+
+			result = pstmt.executeUpdate();
+		} catch (SQLException e) {
+//			throw new RuntimeException(e);
+			e.printStackTrace();
+		} finally {
+			close(pstmt);
+		}
+
+		return result;
+	}
 }

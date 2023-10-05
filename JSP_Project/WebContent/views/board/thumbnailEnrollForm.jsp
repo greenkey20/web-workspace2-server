@@ -35,10 +35,10 @@
 		<br>
 
 		<!--15h 파일 첨부하는 요청을 하는 경우에는 form 태그 내에 꼭/반드시 enctype(속성)="multipart/form-data" 포함시켜야 함 -> request 객체에 자료 넘길 때 multipart라는 형식으로 변환해서 보냄; 부호화 방식을 지정하는 것임
-			+ 사용자들이 첨부하는 파일들을 저장할 (내 hard disc 내)경로 미리 지정 -> WebContent > resources > board_upfiles-->
+			+ 사용자들이 첨부하는 파일들을 저장할 (내 hard disc 내)경로 미리 지정 -> WebContent > resources > thumbnail_upfiles-->
 		<form action="<%= contextPath %>/insert.th" id="enroll-form" method="post" enctype="multipart/form-data">
 			
-			<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>"> <!--필기 제대로 못함-->
+			<input type="hidden" name="userNo" value="<%= loginUser.getUserNo() %>">
 			 
 			<table align="center" border="1">
 				<!--(tr>th+td*3)*4-->
@@ -136,7 +136,7 @@
 			</script>
 
 			<div align="center">
-				<button type="submit">등록하기</button> <!--강사님께서 스타일 같은 것? 수정하신 것 같은데 제대로 못 봄 15h-->
+				<button type="submit" class="btn btn-sm tbn-secondary">등록하기</button> <!--강사님께서 스타일 같은 것? 수정하신 것 같은데 제대로 못 봄 15h -> 확인 완료-->
 			</div>
 
 		</form>
